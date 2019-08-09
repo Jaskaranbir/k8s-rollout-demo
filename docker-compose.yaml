@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  app:
+    build: ./
+    image: jaskaranbir/k8s-rollout:2.0.0
+    network_mode: host

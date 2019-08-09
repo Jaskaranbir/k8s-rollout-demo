@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-rollout-deployment
+  labels:
+    app: k8s-rollout
+spec:
+  replicas: 5
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+    revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: k8s-rollout
+  template:
+    metadata:
+      labels:
+        app: k8s-rollout
+    spec:
+      containers:
+      - name: k8s-rollout
+        image: jaskaranbir/k8s-rollout:1.0.0
+        env:
+        - name: address
+          value: mongodb.dev-1.svc.cluster.local
+        - name: port
+          value: "27017"
